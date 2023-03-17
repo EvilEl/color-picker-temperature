@@ -1,0 +1,28 @@
+{
+  "name": "color-picker-temperature",
+  "version": "0.0.2",
+  "description": "",
+  "main": "./dist/classes/ColorTemperature.js",
+  "types": "./dist/types/classes/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kelvin",
+    "kelvin color picker",
+    "color picker",
+    "color",
+    "picker",
+    "canvas"
+  ],
+  "type": "module",
+  "author": "Andreev Michael (https://www.linkedin.com/in/mikhail-andreev-2741b8209/)",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/EvilEl/color-temperature/issues"
+  }
+}
