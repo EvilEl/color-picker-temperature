@@ -58,6 +58,7 @@ export class BuildCanvas {
     if (!rgb) {
       return 0;
     }
+
     const rgbValues = getRgbValues(rgb);
     if (!rgbValues) {
       return 0;
