@@ -7,13 +7,13 @@
 #### npm
 
 ```
-npm i temperature-test-comp
+npm i color-picker-temperature
 ```
 
 #### yarn
 
 ```
-yarn temperature-test-comp
+yarn color-picker-temperature
 ```
 
 ### Usage
@@ -25,8 +25,9 @@ instance - selector id or class  (required)
 optionsCanvas : {
   width:number;  (required)
   height:number; (required)
-  kelvinStart:number; from 1000
-  kelvinEnd:number;   to 40000
+  rgbColor?:string;
+  kelvinStart?:number; from 1000
+  kelvinEnd?:number;   to 40000
 }
 
 controllerEventOptions:{
@@ -49,7 +50,7 @@ get - get the color of the current
 
 ```ts
 
-import { ColorTemperature } from "temperature-test-comp";
+import { ColorTemperature } from "color-picker-temperature";
 
 function currentColor(color){
     ....
@@ -65,7 +66,6 @@ const optionsCanvas = {
 const controllerEventOptions = {
    getColor:currentColor
 }
-const rgbColor = 'rgb(220, 255, 255)'
-const colorTemperatrue = new ColorTemperature(instance,optionsCanvas,controllerEventOptions,rgbColor);
+const colorTemperatrue = new ColorTemperature(instance,optionsCanvas,controllerEventOptions);
 colorTemperatrue.create()
 ```

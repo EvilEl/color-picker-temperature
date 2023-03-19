@@ -3,15 +3,15 @@ import { Controllers } from "./Controllers";
 import { IColorTemperature, IControllerEventOptions } from "./models";
 
 export class BuildCanvas {
-  canvas: HTMLCanvasElement;
-  radio: HTMLDivElement;
-  kelvinStart: number;
-  kelvinEnd: number;
+  private canvas: HTMLCanvasElement;
+  private radio: HTMLDivElement;
+  private kelvinStart: number;
+  private kelvinEnd: number;
   private _color: string;
-  rectCanvas: DOMRect;
-  rectRadio: DOMRect;
-  context: CanvasRenderingContext2D | null;
-  controllersEventOptions: IControllerEventOptions;
+  private rectCanvas: DOMRect;
+  private rectRadio: DOMRect;
+  private context: CanvasRenderingContext2D | null;
+  private controllersEventOptions: IControllerEventOptions;
   constructor(
     options: IColorTemperature,
     controllersEventOptions?: IControllerEventOptions
@@ -31,11 +31,11 @@ export class BuildCanvas {
     this.controllersEventOptions = controllersEventOptions ?? {};
   }
 
-  get color(): string {
+  public get color(): string {
     return this._color;
   }
 
-  set color(value: string) {
+  public set color(value: string) {
     this._color = value;
   }
 
@@ -63,18 +63,19 @@ export class BuildCanvas {
       return 0;
     }
     const data = this.getData();
-    const findIndex = data.reduce(
-      (acc, cur, index) => {
-        const res = cur.every((item, index) => {
-          return item === Number(rgbValues[index]);
-        });
-        if (res) {
-          acc.index = index;
-        }
-        return acc;
-      },
-      { index: 0 }
-    );
+
+    const findIndex = { index: 0 };
+
+    for (let i = 0; i < data.length; i++) {
+      if (
+        Number(rgbValues[0]) === data[i][0] &&
+        Number(rgbValues[1]) === data[i][1] &&
+        Number(rgbValues[2]) === data[i][2]
+      ) {
+        findIndex.index = i;
+        break;
+      }
+    }
     return findIndex.index + this.rectRadio.width + this.rectCanvas.left;
   }
 
@@ -82,18 +83,19 @@ export class BuildCanvas {
     if (!this.context) {
       return;
     }
+
     this.canvas.width = this.canvas.clientWidth;
     this.canvas.height = this.canvas.clientHeight;
     const { width, height } = this.canvas;
+
     for (let w = 0; w < width; w++) {
-      for (let h = 0; h < height; h++) {
-        const kelvin =
-          ((this.kelvinEnd - this.kelvinStart) / width) * w + this.kelvinStart;
-        const rgb = colorTemperature2rgb(kelvin);
-        this.context.fillStyle = `rgb(${rgb.red},${rgb.green},${rgb.blue})`;
-        this.context.fillRect(w, h, 1, 1);
-      }
+      const kelvin =
+        ((this.kelvinEnd - this.kelvinStart) / width) * w + this.kelvinStart;
+      const rgb = colorTemperature2rgb(kelvin);
+      this.context.fillStyle = `rgb(${rgb.red},${rgb.green},${rgb.blue})`;
+      this.context.fillRect(w, 0, 1, height);
     }
+
     const selectedColorIndex = this.getSelectedColorIndex(this.color);
     const controllers = new Controllers(
       this.canvas,

@@ -1,6 +1,6 @@
 {
   "name": "color-picker-temperature",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "",
   "main": "./dist/classes/ColorTemperature.js",
   "types": "./dist/types/classes/index.d.ts",
@@ -22,7 +22,11 @@
   "devDependencies": {
     "typescript": "^5.0.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilEl/color-picker-temperature.git"
+  },
   "bugs": {
-    "url": "https://github.com/EvilEl/color-temperature/issues"
+    "url": "https://github.com/EvilEl/color-picker-temperature/issues"
   }
 }
