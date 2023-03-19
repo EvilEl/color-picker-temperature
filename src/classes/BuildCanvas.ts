@@ -10,7 +10,7 @@ export class BuildCanvas {
   private _color: string;
   rectCanvas: DOMRect;
   rectRadio: DOMRect;
-  context: CanvasRenderingContext2D | null;
+  private context: CanvasRenderingContext2D | null;
   controllersEventOptions: IControllerEventOptions;
   constructor(
     options: IColorTemperature,
@@ -31,11 +31,11 @@ export class BuildCanvas {
     this.controllersEventOptions = controllersEventOptions ?? {};
   }
 
-  get color(): string {
+  public get color(): string {
     return this._color;
   }
 
-  set color(value: string) {
+  public set color(value: string) {
     this._color = value;
   }
 
@@ -63,18 +63,19 @@ export class BuildCanvas {
       return 0;
     }
     const data = this.getData();
-    const findIndex = data.reduce(
-      (acc, cur, index) => {
-        const res = cur.every((item, index) => {
-          return item === Number(rgbValues[index]);
-        });
-        if (res) {
-          acc.index = index;
-        }
-        return acc;
-      },
-      { index: 0 }
-    );
+
+    const findIndex = { index: 0 };
+
+    for (let i = 0; i < data.length; i++) {
+      if (
+        Number(rgbValues[0]) === data[i][0] &&
+        Number(rgbValues[1]) === data[i][1] &&
+        Number(rgbValues[2]) === data[i][2]
+      ) {
+        findIndex.index = i;
+        break;
+      }
+    }
     return findIndex.index + this.rectRadio.width + this.rectCanvas.left;
   }
 

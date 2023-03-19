@@ -26,7 +26,7 @@ export class ColorTemperature {
     this.canvasRender = null;
   }
 
-  create() {
+  public create() {
     const elementInstance = document.querySelector(this.instance);
     if (!elementInstance) {
       return;
@@ -47,7 +47,7 @@ export class ColorTemperature {
     this.canvasRender.create();
   }
 
-  destroyed() {
+  public destroyed() {
     const elementInstance = document.querySelector(this.instance);
     if (!elementInstance) {
       return;
