@@ -2,16 +2,16 @@ import { render } from "../components/Native";
 import { BuildCanvas } from "./BuildCanvas";
 import { ICanvasOptions, IControllerEventOptions } from "./models";
 
-export class ColorTemperature {
+export class ColorTemperature<T> {
   instance: string;
   component: HTMLDivElement;
   canvasRender: BuildCanvas | null;
   rgbColor: string;
-  canvasOptions: ICanvasOptions;
+  canvasOptions: ICanvasOptions<T>;
   controllersEventOptions: IControllerEventOptions;
   constructor(
     instance: string,
-    canvasOptions: ICanvasOptions,
+    canvasOptions: ICanvasOptions<T>,
     controllersEventOptions?: IControllerEventOptions
   ) {
     this.instance = instance;
