@@ -7,13 +7,13 @@
 #### npm
 
 ```
-npm i temperature-test-comp
+npm i color-picker-temperature
 ```
 
 #### yarn
 
 ```
-yarn temperature-test-comp
+yarn color-picker-temperature
 ```
 
 ### Usage
@@ -49,7 +49,7 @@ get - get the color of the current
 
 ```ts
 
-import { ColorTemperature } from "temperature-test-comp";
+import { ColorTemperature } from "color-picker-temperature";
 
 function currentColor(color){
     ....
