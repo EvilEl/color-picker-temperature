@@ -12,13 +12,12 @@ export class ColorTemperature {
   constructor(
     instance: string,
     canvasOptions: ICanvasOptions,
-    controllersEventOptions?: IControllerEventOptions,
-    rgbColor?: string
+    controllersEventOptions?: IControllerEventOptions
   ) {
     this.instance = instance;
     this.canvasOptions = canvasOptions;
     this.controllersEventOptions = controllersEventOptions ?? {};
-    this.rgbColor = rgbColor ?? "";
+    this.rgbColor = canvasOptions.rgbColor ?? "";
     this.component = render(
       this.canvasOptions.width,
       this.canvasOptions.height
@@ -26,7 +25,7 @@ export class ColorTemperature {
     this.canvasRender = null;
   }
 
-  public create() {
+  public create(): void {
     const elementInstance = document.querySelector(this.instance);
     if (!elementInstance) {
       return;
@@ -47,7 +46,7 @@ export class ColorTemperature {
     this.canvasRender.create();
   }
 
-  public destroyed() {
+  public destroyed(): void {
     const elementInstance = document.querySelector(this.instance);
     if (!elementInstance) {
       return;

@@ -3,4 +3,5 @@ export interface ICanvasOptions {
   height: number;
   kelvinStart?: number;
   kelvinEnd?: number;
+  rgbColor?: string;
 }
