@@ -23,9 +23,9 @@ yarn color-picker-temperature
 instance - selector id or class  (required)
 
 optionsCanvas : {
-  width:number;  (required)
+  width:number|string;  (required) if string '100px' or '100%'
   height:number; (required)
-  rgbColor?:string;
+  rgbColor?:string; color that need set
   kelvinStart?:number; from 1000
   kelvinEnd?:number;   to 40000
 }
@@ -37,12 +37,9 @@ controllerEventOptions:{
 
 rgbColor:string; color that need set
 
-
 ### Methods ColorTemperature
 
 cretate - create your own instance
-
-get - get the color of the current
 
 ```
 
@@ -62,6 +59,7 @@ const optionsCanvas = {
     height: 50,
     kelvinStart: 1000,
     kelvinEnd: 9500,
+    rgbColor: "rgb(255, 246, 247)",
 }
 const controllerEventOptions = {
    getColor:currentColor
