@@ -1,15 +1,15 @@
 import { IControllerEventOptions } from "./models";
 
 export class Controllers {
-  canvas: HTMLCanvasElement;
-  radio: HTMLDivElement;
-  context: CanvasRenderingContext2D;
-  controllersEventOptions: IControllerEventOptions;
+  private canvas: HTMLCanvasElement;
+  private radio: HTMLDivElement;
+  private context: CanvasRenderingContext2D;
+  private controllersEventOptions: IControllerEventOptions;
 
   private RadioUp: () => void;
   private RadioMove: (event: MouseEvent) => void;
-  rectRadio: DOMRect;
-  rectCanvas: DOMRect;
+  private rectRadio: DOMRect;
+  private rectCanvas: DOMRect;
   private _color: string;
   constructor(
     canvas: HTMLCanvasElement,
@@ -76,7 +76,7 @@ export class Controllers {
     this.color = this.radio.style.background;
   }
 
-  public getColorCanvas(event: MouseEvent): string {
+  private getColorCanvas(event: MouseEvent): string {
     const positionY = Math.floor(this.rectCanvas.height / 2);
     let positionX = Math.floor(
       event.x - this.rectCanvas.left - this.rectRadio.width
