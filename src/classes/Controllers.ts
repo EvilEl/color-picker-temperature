@@ -11,6 +11,7 @@ export class Controllers {
   private rectRadio: DOMRect;
   private rectCanvas: DOMRect;
   private _color: string;
+
   constructor(
     canvas: HTMLCanvasElement,
     radio: HTMLDivElement,

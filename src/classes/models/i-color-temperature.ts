@@ -1,7 +1,5 @@
-export interface IColorTemperature {
-  canvas: HTMLCanvasElement;
-  radio: HTMLDivElement;
+export interface IBuildCanvasOptions {
   kelvinStart: number;
   kelvinEnd: number;
-  color?: string;
+  rgbColor: string;
 }

@@ -1,62 +1,54 @@
 import { render } from "../components/Native";
 import { BuildCanvas } from "./BuildCanvas";
-import { ICanvasOptions, IControllerEventOptions } from "./models";
+import {
+  IBuildCanvasOptions,
+  ICanvasOptions,
+  IControllerEventOptions,
+} from "./models";
 
-export class ColorTemperature<T> {
-  instance: string;
-  component: HTMLDivElement;
-  canvasRender: BuildCanvas | null;
-  rgbColor: string;
-  canvasOptions: ICanvasOptions<T>;
-  controllersEventOptions: IControllerEventOptions;
-  constructor(
+class ColorTemperature {
+  private component?: HTMLDivElement | null;
+  private elementInstance?: HTMLDivElement | null;
+  constructor() {
+    this.component = undefined;
+    this.elementInstance = undefined;
+  }
+
+  private buildCanvas = (
+    options: IBuildCanvasOptions,
+    controllersEventOptions?: IControllerEventOptions
+  ): BuildCanvas => {
+    return new BuildCanvas(options, controllersEventOptions);
+  };
+
+  public create = <T>(
     instance: string,
     canvasOptions: ICanvasOptions<T>,
     controllersEventOptions?: IControllerEventOptions
-  ) {
-    this.instance = instance;
-    this.canvasOptions = canvasOptions;
-    this.controllersEventOptions = controllersEventOptions ?? {};
-    this.rgbColor = canvasOptions.rgbColor ?? "";
-    this.component = render(
-      this.canvasOptions.width,
-      this.canvasOptions.height
-    );
-    this.canvasRender = null;
-  }
+  ): ColorTemperature => {
+    this.elementInstance = document.querySelector(instance);
+    if (!this.elementInstance) {
+      throw new Error("Инстанс требуется добавить");
+    }
 
-  public create(): void {
-    const elementInstance = document.querySelector(this.instance);
-    if (!elementInstance) {
-      return;
-    }
-    elementInstance.appendChild(this.component);
-    const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
-    const radio = document.querySelector("#radio") as HTMLDivElement;
-    this.canvasRender = new BuildCanvas(
-      {
-        kelvinStart: this.canvasOptions.kelvinStart ?? 1000,
-        kelvinEnd: this.canvasOptions.kelvinEnd ?? 40000,
-        canvas,
-        radio,
-        color: this.rgbColor,
-      },
-      this.controllersEventOptions
-    );
-    this.canvasRender.create();
-  }
+    this.component = render(canvasOptions.width, canvasOptions.height);
+    this.elementInstance.appendChild(this.component);
+    const newObject = {
+      kelvinStart: canvasOptions.kelvinStart,
+      kelvinEnd: canvasOptions.kelvinEnd,
+      rgbColor: canvasOptions.rgbColor,
+    } as IBuildCanvasOptions;
+    this.buildCanvas(newObject, controllersEventOptions);
+    return this;
+  };
 
-  public destroyed(): void {
-    const elementInstance = document.querySelector(this.instance);
-    if (!elementInstance) {
-      return;
+  public destroyed = (): void => {
+    if (!this.elementInstance || !this.component) {
+      throw new Error("Не существует");
     }
-    elementInstance.removeChild(this.component);
-  }
-  get color(): string {
-    if (!this.canvasRender) {
-      return "";
-    }
-    return this.canvasRender.color;
-  }
+    this.elementInstance.removeChild(this.component);
+    this.component = undefined;
+  };
 }
+
+export default new ColorTemperature();
