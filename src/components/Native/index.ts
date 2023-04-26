@@ -3,9 +3,9 @@ function myComponent<T>(width: T, height: number) {
   return `
 
   <div class="temperature-picker__container" style="width: ${formattedWidth}; height: ${height}px;">
-   <canvas id="canvas" class="temperature-picker__canvas">
+   <canvas id="temperature-picker__canvas" class="temperature-picker__canvas">
    </canvas>
-   <div id="radio" class="temperature-picker__radio">
+   <div id="temperature-picker__radio" class="temperature-picker__radio">
    </div>
 
    <style>

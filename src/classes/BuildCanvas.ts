@@ -1,6 +1,6 @@
 import { colorTemperature2rgb, getRgbValues } from "../utility";
 import { Controllers } from "./Controllers";
-import { IColorTemperature, IControllerEventOptions } from "./models";
+import { IBuildCanvasOptions, IControllerEventOptions } from "./models";
 
 export class BuildCanvas {
   private canvas: HTMLCanvasElement;
@@ -12,15 +12,21 @@ export class BuildCanvas {
   private rectRadio: DOMRect;
   private context: CanvasRenderingContext2D | null;
   private controllersEventOptions: IControllerEventOptions;
+
   constructor(
-    options: IColorTemperature,
+    options: IBuildCanvasOptions,
     controllersEventOptions?: IControllerEventOptions
   ) {
-    this.canvas = options.canvas;
-    this.radio = options.radio;
+    this.canvas = document.querySelector(
+      "#temperature-picker__canvas"
+    ) as HTMLCanvasElement;
+    this.radio = document.querySelector(
+      "#temperature-picker__radio"
+    ) as HTMLDivElement;
+
     this.kelvinStart = options.kelvinStart;
     this.kelvinEnd = options.kelvinEnd;
-    this._color = options.color ?? "";
+    this._color = options.rgbColor ?? "";
     this.rectCanvas = this.canvas.getBoundingClientRect();
     this.rectRadio = this.radio.getBoundingClientRect();
     this.context =
@@ -29,6 +35,7 @@ export class BuildCanvas {
         willReadFrequently: true,
       });
     this.controllersEventOptions = controllersEventOptions ?? {};
+    this.create();
   }
 
   public get color(): string {
