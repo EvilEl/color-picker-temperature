@@ -1,32 +1,18 @@
 {
-  "name": "color-picker-temperature",
-  "version": "0.0.9",
-  "main": "./dist/classes/ColorTemperature.js",
-  "types": "./dist/types/classes/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "publish": "tsc && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "kelvin",
-    "kelvin color picker",
-    "color picker",
-    "color",
-    "picker",
-    "canvas"
-  ],
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "author": "Andreev Michael (https://www.linkedin.com/in/mikhail-andreev-2741b8209/)",
-  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
   "devDependencies": {
-    "typescript": "^5.0.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EvilEl/color-picker-temperature.git"
-  },
-  "bugs": {
-    "url": "https://github.com/EvilEl/color-picker-temperature/issues"
+    "@types/node": "^20.11.28",
+    "path": "^0.12.7",
+    "typescript": "^4.9.5",
+    "vite": "^4.0.0",
+    "vite-plugin-dts": "^1.7.1"
   }
 }

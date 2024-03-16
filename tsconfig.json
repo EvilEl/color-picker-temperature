@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "module": "ES6",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "types": ["node"],
     "allowUnreachableCode": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -11,14 +14,9 @@
     "declaration": true,
     "declarationDir": "./dist/types",
     "declarationMap": true,
-    "outDir": "./dist",
     "removeComments": true,
     "target": "ES2016",
-    "noErrorTruncation": true,
-    "moduleResolution": "node"
+    "noErrorTruncation": true
   },
-  "typeAcquisition": {
-    "enable": false
-  },
-  "include": ["**/*", "*"]
+  "include": ["./src/", "dist/my-lib.js"]
 }
