@@ -24,7 +24,7 @@ instance - selector id or class  (required)
 
 optionsCanvas : {
   width:number|string;  (required) if string '100px' or '100%'
-  height:number; (required)
+  height:number|string;  (required) if string '100px' or '100%'
   rgbColor?:string; color that need set
   kelvinStart?:number; from 1000
   kelvinEnd?:number;   to 40000

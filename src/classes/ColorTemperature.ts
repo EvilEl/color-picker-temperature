@@ -7,6 +7,11 @@ import {
   IControllerEventOptions,
 } from "./models";
 
+interface buildCanvasOptions
+  extends Omit<Required<ICanvasOptions>, "width" | "height"> {
+  hash: string;
+}
+
 class ColorTemperature {
   private component?: HTMLDivElement | null;
   private elementInstance?: HTMLDivElement | null;
@@ -22,9 +27,20 @@ class ColorTemperature {
     return new BuildCanvas(options, controllersEventOptions);
   };
 
-  public create = <T>(
+  private getBuildCanvasOptions(
+    canvasOptions: buildCanvasOptions
+  ): IBuildCanvasOptions {
+    return {
+      kelvinStart: canvasOptions?.kelvinStart ?? 1000,
+      kelvinEnd: canvasOptions?.kelvinEnd ?? 4000,
+      rgbColor: canvasOptions?.rgbColor ?? "red",
+      hash: canvasOptions?.hash ?? "1",
+    };
+  }
+
+  public create = (
     instance: string,
-    canvasOptions: ICanvasOptions<T>,
+    canvasOptions: ICanvasOptions,
     controllersEventOptions?: IControllerEventOptions
   ): ColorTemperature => {
     this.elementInstance = document.querySelector(instance);
@@ -33,19 +49,24 @@ class ColorTemperature {
     }
 
     const hash = UniqName.getUniqName();
+
+    const buildCanvasOptions = this.getBuildCanvasOptions({
+      kelvinStart: canvasOptions.kelvinStart,
+      kelvinEnd: canvasOptions.kelvinEnd,
+      rgbColor: canvasOptions.rgbColor,
+      hash,
+    });
+
     this.component = render({
       width: canvasOptions.width,
       height: canvasOptions.height,
       hash,
     });
+
     this.elementInstance.appendChild(this.component);
-    const newObject = {
-      kelvinStart: canvasOptions.kelvinStart,
-      kelvinEnd: canvasOptions.kelvinEnd,
-      rgbColor: canvasOptions.rgbColor,
-      hash: hash,
-    } as IBuildCanvasOptions;
-    this.buildCanvas(newObject, controllersEventOptions);
+
+    this.buildCanvas(buildCanvasOptions, controllersEventOptions);
+
     return this;
   };
 
