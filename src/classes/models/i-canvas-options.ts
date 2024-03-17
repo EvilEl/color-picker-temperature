@@ -1,6 +1,6 @@
-export interface ICanvasOptions<T> {
-  width: T;
-  height: number;
+export interface ICanvasOptions {
+  width: number | string;
+  height: number | string;
   kelvinStart?: number;
   kelvinEnd?: number;
   rgbColor?: string;
