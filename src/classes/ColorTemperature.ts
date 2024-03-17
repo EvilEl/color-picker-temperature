@@ -1,5 +1,6 @@
 import { render } from "../components/Native";
 import { BuildCanvas } from "./BuildCanvas";
+import UniqName from "./UniqName";
 import {
   IBuildCanvasOptions,
   ICanvasOptions,
@@ -10,8 +11,8 @@ class ColorTemperature {
   private component?: HTMLDivElement | null;
   private elementInstance?: HTMLDivElement | null;
   constructor() {
-    this.component = undefined;
-    this.elementInstance = undefined;
+    this.component = null;
+    this.elementInstance = null;
   }
 
   private buildCanvas = (
@@ -31,12 +32,18 @@ class ColorTemperature {
       throw new Error("Инстанс требуется добавить");
     }
 
-    this.component = render(canvasOptions.width, canvasOptions.height);
+    const hash = UniqName.getUniqName();
+    this.component = render({
+      width: canvasOptions.width,
+      height: canvasOptions.height,
+      hash,
+    });
     this.elementInstance.appendChild(this.component);
     const newObject = {
       kelvinStart: canvasOptions.kelvinStart,
       kelvinEnd: canvasOptions.kelvinEnd,
       rgbColor: canvasOptions.rgbColor,
+      hash: hash,
     } as IBuildCanvasOptions;
     this.buildCanvas(newObject, controllersEventOptions);
     return this;
@@ -47,7 +54,7 @@ class ColorTemperature {
       throw new Error("Не существует");
     }
     this.elementInstance.removeChild(this.component);
-    this.component = undefined;
+    this.component = null;
   };
 }
 

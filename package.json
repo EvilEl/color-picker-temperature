@@ -19,14 +19,18 @@
   "type": "module",
   "author": "Andreev Michael (https://www.linkedin.com/in/mikhail-andreev-2741b8209/)",
   "license": "MIT",
-  "devDependencies": {
-    "typescript": "^5.0.2"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EvilEl/color-picker-temperature.git"
   },
   "bugs": {
     "url": "https://github.com/EvilEl/color-picker-temperature/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.28",
+    "path": "^0.12.7",
+    "typescript": "^4.9.5",
+    "vite": "^4.0.0",
+    "vite-plugin-dts": "^1.7.1"
   }
 }

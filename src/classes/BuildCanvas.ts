@@ -18,12 +18,11 @@ export class BuildCanvas {
     controllersEventOptions?: IControllerEventOptions
   ) {
     this.canvas = document.querySelector(
-      "#temperature-picker__canvas"
+      `#temperature-picker__canvas-${options.hash}`
     ) as HTMLCanvasElement;
     this.radio = document.querySelector(
-      "#temperature-picker__radio"
+      `#temperature-picker__radio-${options.hash}`
     ) as HTMLDivElement;
-
     this.kelvinStart = options.kelvinStart;
     this.kelvinEnd = options.kelvinEnd;
     this._color = options.rgbColor ?? "";
