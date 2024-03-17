@@ -46,26 +46,24 @@ cretate - create your own instance
 ### Example
 
 ```ts
+
 import { ColorTemperature } from "color-picker-temperature";
 
-function currentColor(color) {
-  console.log(color);
+function currentColor(color){
+    ....
+    console.log(color)
 }
 const instance = "#dd";
 const optionsCanvas = {
-  width: 300,
-  height: 50,
-  kelvinStart: 1000,
-  kelvinEnd: 9500,
-  rgbColor: "rgb(255, 246, 247)",
-};
+    width: 300,
+    height: 50,
+    kelvinStart: 1000,
+    kelvinEnd: 9500,
+    rgbColor: "rgb(255, 246, 247)",
+}
 const controllerEventOptions = {
-  getColor: currentColor,
-};
-const colorTemperatrue = new ColorTemperature(
-  instance,
-  optionsCanvas,
-  controllerEventOptions
-);
-colorTemperatrue.create();
+   getColor:currentColor
+}
+const colorTemperatrue = new ColorTemperature(instance,optionsCanvas,controllerEventOptions);
+colorTemperatrue.create()
 ```
