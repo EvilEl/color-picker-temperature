@@ -1,6 +1,6 @@
 {
   "name": "color-picker-temperature",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "main": "./dist/classes/ColorTemperature.js",
   "types": "./dist/types/classes/index.d.ts",
   "scripts": {

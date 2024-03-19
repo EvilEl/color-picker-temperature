@@ -1,22 +1,18 @@
 import { colorTemperature2rgb, getRgbValues } from "../utility";
 import { Controllers } from "./Controllers";
-import { IBuildCanvasOptions, IControllerEventOptions } from "./models";
+import { IBuildCanvasOptions } from "./models";
 
 export class BuildCanvas {
   private canvas: HTMLCanvasElement;
   private radio: HTMLDivElement;
   private kelvinStart: number;
   private kelvinEnd: number;
-  private _color: string;
   private rectCanvas: DOMRect;
+  private rgbColor: string;
   private rectRadio: DOMRect;
   private context: CanvasRenderingContext2D | null;
-  private controllersEventOptions: IControllerEventOptions;
-
-  constructor(
-    options: IBuildCanvasOptions,
-    controllersEventOptions?: IControllerEventOptions
-  ) {
+  public controllers: Controllers;
+  constructor(options: IBuildCanvasOptions) {
     this.canvas = document.querySelector(
       `#temperature-picker__canvas-${options.hash}`
     ) as HTMLCanvasElement;
@@ -25,7 +21,7 @@ export class BuildCanvas {
     ) as HTMLDivElement;
     this.kelvinStart = options.kelvinStart;
     this.kelvinEnd = options.kelvinEnd;
-    this._color = options.rgbColor ?? "";
+    this.rgbColor = options.rgbColor ?? "";
     this.rectCanvas = this.canvas.getBoundingClientRect();
     this.rectRadio = this.radio.getBoundingClientRect();
     this.context =
@@ -33,16 +29,7 @@ export class BuildCanvas {
       this.canvas.getContext("2d", {
         willReadFrequently: true,
       });
-    this.controllersEventOptions = controllersEventOptions ?? {};
     this.create();
-  }
-
-  public get color(): string {
-    return this._color;
-  }
-
-  public set color(value: string) {
-    this._color = value;
   }
 
   private getData(): number[][] {
@@ -103,14 +90,10 @@ export class BuildCanvas {
       this.context.fillRect(w, 0, 1, height);
     }
 
-    const selectedColorIndex = this.getSelectedColorIndex(this.color);
-    const controllers = new Controllers(
-      this.canvas,
-      this.radio,
-      this.context,
-      this.controllersEventOptions
-    );
-    controllers.moveAt({ x: Number(selectedColorIndex) } as MouseEvent);
-    this.color = controllers.color;
+    const selectedColorIndex = this.getSelectedColorIndex(this.rgbColor);
+    this.controllers = new Controllers(this.canvas, this.radio, this.context);
+    this.controllers.moveAt({
+      x: Number(selectedColorIndex),
+    } as MouseEvent);
   }
 }

@@ -1,30 +1,25 @@
 import { render } from "../components/Native";
 import { BuildCanvas } from "./BuildCanvas";
 import UniqName from "./UniqName";
-import {
-  IBuildCanvasOptions,
-  ICanvasOptions,
-  IControllerEventOptions,
-} from "./models";
+import { IBuildCanvasOptions, ICanvasOptions } from "./models";
 
 interface buildCanvasOptions
   extends Omit<Required<ICanvasOptions>, "width" | "height"> {
   hash: string;
 }
 
-class ColorTemperature {
+export class ColorTemperature {
   private component?: HTMLDivElement | null;
   private elementInstance?: HTMLDivElement | null;
+  public buildCanvas: BuildCanvas;
+  color: string;
   constructor() {
     this.component = null;
     this.elementInstance = null;
   }
 
-  private buildCanvas = (
-    options: IBuildCanvasOptions,
-    controllersEventOptions?: IControllerEventOptions
-  ): BuildCanvas => {
-    return new BuildCanvas(options, controllersEventOptions);
+  private createBuildCanvas = (options: IBuildCanvasOptions): BuildCanvas => {
+    return new BuildCanvas(options);
   };
 
   private getBuildCanvasOptions(
@@ -40,8 +35,7 @@ class ColorTemperature {
 
   public create = (
     instance: string,
-    canvasOptions: ICanvasOptions,
-    controllersEventOptions?: IControllerEventOptions
+    canvasOptions: ICanvasOptions
   ): ColorTemperature => {
     this.elementInstance = document.querySelector(instance);
     if (!this.elementInstance) {
@@ -64,9 +58,7 @@ class ColorTemperature {
     });
 
     this.elementInstance.appendChild(this.component);
-
-    this.buildCanvas(buildCanvasOptions, controllersEventOptions);
-
+    this.buildCanvas = this.createBuildCanvas(buildCanvasOptions);
     return this;
   };
 
@@ -78,5 +70,3 @@ class ColorTemperature {
     this.component = null;
   };
 }
-
-export default new ColorTemperature();
