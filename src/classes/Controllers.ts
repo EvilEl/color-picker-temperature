@@ -1,51 +1,61 @@
-import { IControllerEventOptions } from "./models";
-
 export class Controllers {
   private canvas: HTMLCanvasElement;
   private radio: HTMLDivElement;
   private context: CanvasRenderingContext2D;
-  private controllersEventOptions: IControllerEventOptions;
 
   private RadioUp: () => void;
   private RadioMove: (event: MouseEvent) => void;
   private rectRadio: DOMRect;
   private rectCanvas: DOMRect;
-  private _color: string;
+  private watchers: { (value: string): void }[] = [];
+  myColor = new Proxy(
+    { _color: "" },
+    {
+      set: (_, key, value) => {
+        if (key === "_color") {
+          this.notifyWatchers(value);
+        }
+        return true;
+      },
+    }
+  );
 
   constructor(
     canvas: HTMLCanvasElement,
     radio: HTMLDivElement,
-    context: CanvasRenderingContext2D,
-    controllersEventOptions?: IControllerEventOptions
+    context: CanvasRenderingContext2D
   ) {
     this.canvas = canvas;
     this.radio = radio;
     this.context = context;
-    this.controllersEventOptions = controllersEventOptions ?? {};
 
     this.radio.addEventListener("pointerdown", this.onRadioDown.bind(this));
     this.canvas.addEventListener("click", this.moveAt.bind(this));
-
-    this._color = radio.style.background;
 
     this.RadioUp = this.onRadioUp.bind(this);
     this.RadioMove = this.onRadioMove.bind(this);
 
     this.rectRadio = radio.getBoundingClientRect();
     this.rectCanvas = canvas.getBoundingClientRect();
-  }
-
-  get color(): string {
-    return this._color;
-  }
-
-  set color(value: string) {
-    this._color = value;
+    this.myColor._color = radio.style.background;
   }
 
   private onRadioDown(): void {
     document.addEventListener("pointerup", this.RadioUp);
     document.addEventListener("pointermove", this.RadioMove);
+  }
+
+  public getColor(callback: { (): void }) {
+    this.watchers.push(callback);
+  }
+
+  private notifyWatchers(value: string) {
+    console.log(this.watchers);
+
+    if (!this.watchers.length) {
+      return;
+    }
+    this.watchers.forEach((callback) => callback(value));
   }
 
   private onRadioUp(): void {
@@ -74,7 +84,7 @@ export class Controllers {
     }
     this.radio.style.left = `${formatCoordinate}%`;
     this.radio.style.background = this.getColorCanvas(event);
-    this.color = this.radio.style.background;
+    this.myColor._color = this.radio.style.background;
   }
 
   private getColorCanvas(event: MouseEvent): string {
@@ -91,9 +101,6 @@ export class Controllers {
     const imageData = this.context.getImageData(positionX, positionY, 1, 1);
     const pixels = imageData.data;
     const pixelColor = `rgb(${pixels[0]},${pixels[1]},${pixels[2]})`;
-    if (this.controllersEventOptions.getColor) {
-      this.controllersEventOptions.getColor(pixelColor);
-    }
     return pixelColor;
   }
 }
