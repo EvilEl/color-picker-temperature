@@ -24,7 +24,7 @@ instance - selector id or class  (required)
 
 optionsCanvas : {
   width:number|string;  (required) if string '100px' or '100%'
-  width:number|string;  (required) if string '100px' or '100%'
+  height:number|string;  (required) if string '100px' or '100%'
   rgbColor?:string; color that need set
   kelvinStart?:number; from 1000
   kelvinEnd?:number;   to 40000
@@ -37,7 +37,6 @@ rgbColor:string; color that need set
 cretate - create your own instance
 
 buildCanvas.controllers.getColor( callback )
-
 ```
 
 ### Example
