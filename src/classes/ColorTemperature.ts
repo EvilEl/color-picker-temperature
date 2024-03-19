@@ -11,11 +11,11 @@ interface buildCanvasOptions
 export class ColorTemperature {
   private component?: HTMLDivElement | null;
   private elementInstance?: HTMLDivElement | null;
-  public buildCanvas: BuildCanvas;
-  color: string;
+  public buildCanvas: BuildCanvas | null;
   constructor() {
     this.component = null;
     this.elementInstance = null;
+    this.buildCanvas = null;
   }
 
   private createBuildCanvas = (options: IBuildCanvasOptions): BuildCanvas => {
@@ -26,9 +26,9 @@ export class ColorTemperature {
     canvasOptions: buildCanvasOptions
   ): IBuildCanvasOptions {
     return {
-      kelvinStart: canvasOptions?.kelvinStart ?? 1000,
-      kelvinEnd: canvasOptions?.kelvinEnd ?? 4000,
-      rgbColor: canvasOptions?.rgbColor ?? "red",
+      kelvinStart: canvasOptions?.kelvinStart,
+      kelvinEnd: canvasOptions?.kelvinEnd,
+      rgbColor: canvasOptions?.rgbColor,
       hash: canvasOptions?.hash ?? "1",
     };
   }
@@ -45,9 +45,9 @@ export class ColorTemperature {
     const hash = UniqName.getUniqName();
 
     const buildCanvasOptions = this.getBuildCanvasOptions({
-      kelvinStart: canvasOptions.kelvinStart,
-      kelvinEnd: canvasOptions.kelvinEnd,
-      rgbColor: canvasOptions.rgbColor,
+      kelvinStart: canvasOptions.kelvinStart ?? 1000,
+      kelvinEnd: canvasOptions.kelvinEnd ?? 4000,
+      rgbColor: canvasOptions.rgbColor ?? "",
       hash,
     });
 

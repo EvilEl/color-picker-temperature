@@ -24,7 +24,7 @@ instance - selector id or class  (required)
 
 optionsCanvas : {
   width:number|string;  (required) if string '100px' or '100%'
-  height:number|string;  (required) if string '100px' or '100%'
+  width:number|string;  (required) if string '100px' or '100%'
   rgbColor?:string; color that need set
   kelvinStart?:number; from 1000
   kelvinEnd?:number;   to 40000
@@ -36,24 +36,29 @@ rgbColor:string; color that need set
 
 cretate - create your own instance
 
+buildCanvas.controllers.getColor( callback )
+
 ```
 
 ### Example
 
 ```ts
 import { ColorTemperature } from "color-picker-temperature";
-function currentColor(color) {
-  console.log(color);
+
+function getColor(color){
+    console.log(color)
 }
 const instance = "#dd";
 const optionsCanvas = {
-  width: 300,
-  height: 50,
-  kelvinStart: 1000,
-  kelvinEnd: 9500,
-  rgbColor: "rgb(255, 246, 247)",
-};
+    width: '100%',
+    height: 100,
+    kelvinStart: 1000,
+    kelvinEnd: 40000,
+    rgbColor: "rgb(255, 246, 247)",
+}
 
-const colorTemperatrue = new ColorTemperature(instance, optionsCanvas);
-colorTemperatrue.create();
+const colorTemperature new ColorTemperature()
+colorTemperature.create(instance, optionsCanvas);
+colorTemperature.buildCanvas.controllers.getColor(getColor)
+
 ```

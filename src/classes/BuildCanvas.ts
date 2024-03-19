@@ -11,7 +11,7 @@ export class BuildCanvas {
   private rgbColor: string;
   private rectRadio: DOMRect;
   private context: CanvasRenderingContext2D | null;
-  public controllers: Controllers;
+  public controllers: Controllers | null;
   constructor(options: IBuildCanvasOptions) {
     this.canvas = document.querySelector(
       `#temperature-picker__canvas-${options.hash}`
@@ -29,6 +29,7 @@ export class BuildCanvas {
       this.canvas.getContext("2d", {
         willReadFrequently: true,
       });
+    this.controllers = null;
     this.create();
   }
 
