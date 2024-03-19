@@ -50,8 +50,6 @@ export class Controllers {
   }
 
   private notifyWatchers(value: string) {
-    console.log(this.watchers);
-
     if (!this.watchers.length) {
       return;
     }
