@@ -3,8 +3,8 @@ import { Controllers } from "./Controllers";
 import { IBuildCanvasOptions } from "./models";
 
 export class BuildCanvas {
-  private canvas: HTMLCanvasElement;
-  private radio: HTMLDivElement;
+  public canvas: HTMLCanvasElement;
+  public radio: HTMLDivElement;
   private kelvinStart: number;
   private kelvinEnd: number;
   private rectCanvas: DOMRect;

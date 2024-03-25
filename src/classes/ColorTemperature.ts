@@ -11,7 +11,7 @@ interface buildCanvasOptions
 export class ColorTemperature {
   private component?: HTMLDivElement | null;
   private elementInstance?: HTMLDivElement | null;
-  public buildCanvas: BuildCanvas | null;
+  private buildCanvas: BuildCanvas | null;
   constructor() {
     this.component = null;
     this.elementInstance = null;
@@ -39,7 +39,10 @@ export class ColorTemperature {
   ): ColorTemperature => {
     this.elementInstance = document.querySelector(instance);
     if (!this.elementInstance) {
-      throw new Error("Инстанс требуется добавить");
+      throw new Error("no matches found with selector");
+    }
+    if (this.component) {
+      throw new Error("The component has already been added");
     }
 
     const hash = UniqName.getUniqName();
@@ -62,11 +65,24 @@ export class ColorTemperature {
     return this;
   };
 
+  public getColor(callback: { (): void }) {
+    this.buildCanvas.controllers.getColor(callback);
+  }
+
   public destroyed = (): void => {
     if (!this.elementInstance || !this.component) {
-      throw new Error("Не существует");
+      throw new Error("Does not exist");
     }
     this.elementInstance.removeChild(this.component);
-    this.component = null;
+    this.deleteLink();
   };
+
+  deleteLink() {
+    if (!this.elementInstance || !this.component || !this.buildCanvas) {
+      throw new Error("Does not exist");
+    }
+    this.component = null;
+    this.elementInstance = null;
+    this.buildCanvas = null;
+  }
 }
