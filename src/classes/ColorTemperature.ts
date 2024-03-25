@@ -62,11 +62,25 @@ export class ColorTemperature {
     return this;
   };
 
+  public getColor(callback: { (): void }) {
+    this.buildCanvas.controllers.getColor(callback);
+  }
+
   public destroyed = (): void => {
     if (!this.elementInstance || !this.component) {
       throw new Error("Не существует");
     }
     this.elementInstance.removeChild(this.component);
-    this.component = null;
+    this.deleteLink();
   };
+
+  deleteLink() {
+    if (!this.elementInstance || !this.component || !this.buildCanvas) {
+      throw new Error("Не существует");
+    }
+    this.component = null;
+    this.elementInstance = null;
+    this.buildCanvas.canvas = null;
+    this.buildCanvas.radio = null;
+  }
 }

@@ -36,7 +36,9 @@ rgbColor:string; color that need set
 
 cretate - create your own instance
 
-buildCanvas.controllers.getColor( callback )
+getColor => getColor(callback)
+
+destroyed - deletes a component
 ```
 
 ### Example
@@ -44,20 +46,19 @@ buildCanvas.controllers.getColor( callback )
 ```ts
 import { ColorTemperature } from "color-picker-temperature";
 
-function getColor(color){
-    console.log(color)
+function getColor(color) {
+  console.log(color);
 }
 const instance = "#dd";
 const optionsCanvas = {
-    width: '100%',
-    height: 100,
-    kelvinStart: 1000,
-    kelvinEnd: 40000,
-    rgbColor: "rgb(255, 246, 247)",
-}
+  width: "100%",
+  height: 100,
+  kelvinStart: 1000,
+  kelvinEnd: 40000,
+  rgbColor: "rgb(255, 246, 247)",
+};
 
-const colorTemperature new ColorTemperature()
+const colorTemperature = new ColorTemperature();
 colorTemperature.create(instance, optionsCanvas);
-colorTemperature.buildCanvas.controllers.getColor(getColor)
-
+colorTemperature.getColor(getColor);
 ```
