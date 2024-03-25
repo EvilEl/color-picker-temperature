@@ -61,4 +61,9 @@ const optionsCanvas = {
 const colorTemperature = new ColorTemperature();
 colorTemperature.create(instance, optionsCanvas);
 colorTemperature.getColor(getColor);
+
+// if
+setTimeout(() => {
+  colorTemperature.destroyed();
+}, 10000);
 ```
