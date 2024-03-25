@@ -16,6 +16,10 @@ npm i color-picker-temperature
 yarn color-picker-temperature
 ```
 
+#### pnpm
+
+pnpm color-picker-temperature
+
 ### Usage
 
 ```
@@ -62,8 +66,8 @@ const colorTemperature = new ColorTemperature();
 colorTemperature.create(instance, optionsCanvas);
 colorTemperature.getColor(getColor);
 
-// if
 setTimeout(() => {
+  // if you need to delete a component
   colorTemperature.destroyed();
 }, 10000);
 ```
