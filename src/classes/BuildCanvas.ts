@@ -14,10 +14,10 @@ export class BuildCanvas {
   public controllers: Controllers | null;
   constructor(options: IBuildCanvasOptions) {
     this.canvas = document.querySelector(
-      `#temperature-picker__canvas-${options.hash}`
+      `.temperature-picker__canvas-${options.hash}`
     ) as HTMLCanvasElement;
     this.radio = document.querySelector(
-      `#temperature-picker__radio-${options.hash}`
+      `.temperature-picker__radio-${options.hash}`
     ) as HTMLDivElement;
     this.kelvinStart = options.kelvinStart;
     this.kelvinEnd = options.kelvinEnd;
