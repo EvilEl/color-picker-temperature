@@ -28,6 +28,7 @@ function myComponent({ width, height, hash }: IOptions): HTMLDivElement {
     margin: 0;
     padding: 0;
     width: 100%;
+    cursor: pointer;
  }
  .temperature-picker__canvas-${hash} {
     width:100%;
