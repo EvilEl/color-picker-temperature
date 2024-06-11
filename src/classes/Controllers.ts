@@ -1,13 +1,23 @@
+interface IControllers {
+  canvas: HTMLCanvasElement;
+  radio: HTMLDivElement;
+  context: CanvasRenderingContext2D;
+  container: HTMLDivElement;
+}
+
 export class Controllers {
-  private canvas: HTMLCanvasElement;
   private radio: HTMLDivElement;
   private context: CanvasRenderingContext2D;
-
-  private RadioUp: () => void;
-  private RadioMove: (event: MouseEvent) => void;
+  private container: HTMLDivElement;
+  private isMouseDown: boolean = false;
+  private pointerUp: () => void;
+  private animationFrameId: number | null = null;
+  private changeMouse: (event: MouseEvent) => void;
+  private pointerMoveCanvas: (event: MouseEvent) => void;
   private rectRadio: DOMRect;
   private rectCanvas: DOMRect;
   private watchers: { (value: string): void }[] = [];
+  //TODO use get set, not proxy
   myColor = new Proxy(
     { _color: "" },
     {
@@ -20,29 +30,22 @@ export class Controllers {
     }
   );
 
-  constructor(
-    canvas: HTMLCanvasElement,
-    radio: HTMLDivElement,
-    context: CanvasRenderingContext2D
-  ) {
-    this.canvas = canvas;
+  constructor({ canvas, radio, context, container }: IControllers) {
     this.radio = radio;
     this.context = context;
+    this.container = container;
 
-    this.radio.addEventListener("pointerdown", this.onRadioDown.bind(this));
-    this.canvas.addEventListener("click", this.moveAt.bind(this));
+    this.animationFrameId = null;
+    this.pointerUp = this.onPointerUp.bind(this);
+    this.changeMouse = this.onChangeMouse.bind(this);
+    this.pointerMoveCanvas = this.onPointerMoveCanvas.bind(this);
 
-    this.RadioUp = this.onRadioUp.bind(this);
-    this.RadioMove = this.onRadioMove.bind(this);
-
+    this.isMouseDown = false;
     this.rectRadio = radio.getBoundingClientRect();
     this.rectCanvas = canvas.getBoundingClientRect();
     this.myColor._color = radio.style.background;
-  }
 
-  private onRadioDown(): void {
-    document.addEventListener("pointerup", this.RadioUp);
-    document.addEventListener("pointermove", this.RadioMove);
+    this.setEventMouse();
   }
 
   public getColor(callback: { (): void }) {
@@ -56,21 +59,55 @@ export class Controllers {
     this.watchers.forEach((callback) => callback(value));
   }
 
-  private onRadioUp(): void {
-    document.removeEventListener("pointerup", this.RadioUp);
-    document.removeEventListener("pointermove", this.RadioMove);
+  onPointerUp() {
+    this.isMouseDown = false;
+    this.removeEventMouse();
   }
 
-  private onRadioMove(event: MouseEvent): void {
-    event.preventDefault();
+  onChangeMouse(event: MouseEvent) {
+    this.isMouseDown = true;
     this.moveAt(event);
-    this.radio.style.background;
   }
 
-  public moveAt(event: MouseEvent): void {
+  private setEventMouse() {
+    document.addEventListener("pointerup", this.pointerUp.bind(this));
+    this.container.addEventListener("pointerdown", this.changeMouse.bind(this));
+    this.container.addEventListener(
+      "pointermove",
+      this.pointerMoveCanvas.bind(this)
+    );
+  }
+
+  private removeEventMouse() {
+    document.removeEventListener("pointerup", this.pointerUp);
+    this.container.removeEventListener("pointerdown", this.changeMouse);
+    this.container.removeEventListener("pointermove", this.pointerMoveCanvas);
+  }
+
+  onPointerMoveCanvas(event: MouseEvent) {
+    if (!this.isMouseDown) {
+      return;
+    }
+    this.changeMouse(event);
+  }
+
+  private moveAt(event: MouseEvent): void {
+    const { x } = event;
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    this.animationFrameId = requestAnimationFrame(() => this.chagePosition(x));
+  }
+
+  private setColor(x: number) {
+    this.myColor._color = this.radio.style.background;
+    this.radio.style.background = this.getColorCanvas(x);
+  }
+
+  public chagePosition(x: number) {
     const radioPercent = (this.rectRadio.width / this.rectCanvas.width) * 100;
     const coordinateX =
-      ((event.x - this.rectCanvas.left - this.rectRadio.width / 2) /
+      ((x - this.rectCanvas.left - this.rectRadio.width / 2) /
         this.rectCanvas.width) *
       100;
     let formatCoordinate = coordinateX;
@@ -81,15 +118,12 @@ export class Controllers {
       formatCoordinate = 100 - radioPercent;
     }
     this.radio.style.left = `${formatCoordinate}%`;
-    this.radio.style.background = this.getColorCanvas(event);
-    this.myColor._color = this.radio.style.background;
+    this.setColor(x);
   }
 
-  private getColorCanvas(event: MouseEvent): string {
+  private getColorCanvas(x: number): string {
     const positionY = Math.floor(this.rectCanvas.height / 2);
-    let positionX = Math.floor(
-      event.x - this.rectCanvas.left - this.rectRadio.width
-    );
+    let positionX = Math.floor(x - this.rectCanvas.left - this.rectRadio.width);
     if (positionX < 0) {
       positionX = 1;
     }

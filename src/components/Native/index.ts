@@ -54,6 +54,7 @@ export function render({ width, height, hash }: IOptions): HTMLDivElement {
   const container = document.createElement("div");
   container.classList.add("temperature-picker");
   container.style.display = "flex";
+  container.style.height = "150px";
   const component = myComponent({ width, height, hash });
   container.appendChild(component);
   return container;
