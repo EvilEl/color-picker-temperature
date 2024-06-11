@@ -1,6 +1,7 @@
+const RGB_COLOR_REGEX = /rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)/;
+
 export function getRgbValues(rgb: string): string[] | null {
-  const matchColors = /rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)/;
-  const result = matchColors.exec(rgb.replace(/\s+/g, ""));
+  const result = RGB_COLOR_REGEX.exec(rgb.replace(/\s+/g, ""));
   if (!result) {
     return null;
   }

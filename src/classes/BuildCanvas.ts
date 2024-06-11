@@ -5,6 +5,7 @@ import { IBuildCanvasOptions } from "./models";
 export class BuildCanvas {
   public canvas: HTMLCanvasElement;
   public radio: HTMLDivElement;
+  public container: HTMLDivElement;
   private kelvinStart: number;
   private kelvinEnd: number;
   private rectCanvas: DOMRect;
@@ -13,12 +14,15 @@ export class BuildCanvas {
   private context: CanvasRenderingContext2D | null;
   public controllers: Controllers | null;
   constructor(options: IBuildCanvasOptions) {
+    this.container = document.querySelector(
+      `.temperature-picker__container-${options.hash}`
+    );
     this.canvas = document.querySelector(
       `.temperature-picker__canvas-${options.hash}`
     ) as HTMLCanvasElement;
     this.radio = document.querySelector(
       `.temperature-picker__radio-${options.hash}`
-    ) as HTMLDivElement;
+    );
     this.kelvinStart = options.kelvinStart;
     this.kelvinEnd = options.kelvinEnd;
     this.rgbColor = options.rgbColor ?? "";
@@ -92,9 +96,12 @@ export class BuildCanvas {
     }
 
     const selectedColorIndex = this.getSelectedColorIndex(this.rgbColor);
-    this.controllers = new Controllers(this.canvas, this.radio, this.context);
-    this.controllers.moveAt({
-      x: Number(selectedColorIndex),
-    } as MouseEvent);
+    this.controllers = new Controllers({
+      canvas: this.canvas,
+      radio: this.radio,
+      context: this.context,
+      container: this.container,
+    });
+    this.controllers.chagePosition(Number(selectedColorIndex));
   }
 }
