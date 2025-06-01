@@ -96,7 +96,7 @@ export class Controllers {
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
     }
-    this.animationFrameId = requestAnimationFrame(() => this.chagePosition(x));
+    this.animationFrameId = requestAnimationFrame(() => this.changePosition(x));
   }
 
   private setColor(x: number) {
@@ -104,7 +104,7 @@ export class Controllers {
     this.radio.style.background = this.getColorCanvas(x);
   }
 
-  public chagePosition(x: number) {
+  public changePosition(x: number) {
     const radioPercent = (this.rectRadio.width / this.rectCanvas.width) * 100;
     const coordinateX =
       ((x - this.rectCanvas.left - this.rectRadio.width / 2) /
