@@ -67,7 +67,7 @@ export class ColorTemperature {
   };
 
   public getColor(callback: { (): void }) {
-    this.buildCanvas?.controllers?.getColor(callback);
+    // this.buildCanvas?.controllers?.getColor(callback);
   }
 
   public destroyed = (): void => {

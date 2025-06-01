@@ -96,11 +96,16 @@ export class BuildCanvas {
     }
 
     const selectedColorIndex = this.getSelectedColorIndex(this.rgbColor);
-    this.controllers = new Controllers({
-      canvas: this.canvas,
-      radio: this.radio,
-      context: this.context,
-      container: this.container,
+    this.controllers = new Controllers(this.canvas, {
+      onPointerMove: (event: MouseEvent) => {
+        console.log("onPointerMove move event triggered", event);
+      },
+      onPointerUp: (event: MouseEvent) => {
+        console.log("onPointerUp move event triggered", event);
+      },
+      onMouseMove: (event: MouseEvent) => {
+        console.log("Mouse move event triggered", event);
+      },
     });
     this.controllers.changePosition(Number(selectedColorIndex));
   }
