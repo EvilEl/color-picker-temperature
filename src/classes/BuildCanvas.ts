@@ -1,5 +1,6 @@
-import { colorTemperature2rgb, ColorsValues } from "../utility";
+import { colorTemperature2rgb, } from "../utility";
 import { Controllers } from "./Controllers";
+import { SelectedColor } from './SelectedColor'
 import type { IBuildCanvasOptions } from "./models";
 
 export class BuildCanvas {
@@ -13,6 +14,7 @@ export class BuildCanvas {
   private rectRadio: DOMRect;
   private context: CanvasRenderingContext2D | null;
   public controllers: Controllers | null;
+  private selectedColor: SelectedColor
   constructor(options: IBuildCanvasOptions) {
     this.container = document.querySelector(
       `.temperature-picker__container-${options.hash}`
@@ -34,49 +36,20 @@ export class BuildCanvas {
         willReadFrequently: true,
       });
     this.controllers = null;
+    this.selectedColor = new SelectedColor({
+      rectRadio: this.rectRadio,
+      rectCanvas: this.rectCanvas,
+      radio: this.radio,
+      canvas: this.canvas,
+      context: this.context,
+      rgbColor: this.rgbColor
+    })
     this.create();
   }
 
-  private getData(): number[][] {
-    if (!this.context) {
-      return [];
-    }
-    const imageData = this.context.getImageData(0, 0, this.canvas.width, 1);
-    const formData: number[][] = [];
-    for (let i = 0; i < imageData.data.length; i += 4) {
-      const newArr = [...imageData.data.slice(i, i + 3)] as number[];
-      if (!formData.includes(newArr)) {
-        formData.push(newArr);
-      }
-    }
-    return formData;
-  }
 
-  private getSelectedColorIndex(rgb: string): number {
-    if (!rgb) {
-      return 0;
-    }
 
-    const values = ColorsValues.getColorsValues(rgb, { handler: 'getRgbValues' });
-    if (!values) {
-      return 0;
-    }
-    const data = this.getData();
 
-    const findIndex = { index: 0 };
-
-    for (let i = 0; i < data.length; i++) {
-      if (
-        Number(values[0]) === data[i][0] &&
-        Number(values[1]) === data[i][1] &&
-        Number(values[2]) === data[i][2]
-      ) {
-        findIndex.index = i;
-        break;
-      }
-    }
-    return findIndex.index + this.rectRadio.width + this.rectCanvas.left;
-  }
 
   public create(): void {
     if (!this.context) {
@@ -95,18 +68,22 @@ export class BuildCanvas {
       this.context.fillRect(w, 0, 1, height);
     }
 
-    const selectedColorIndex = this.getSelectedColorIndex(this.rgbColor);
+    this.selectedColor.getSelectedColorIndex(this.rgbColor)
     this.controllers = new Controllers(this.canvas, {
       onPointerMove: (event: MouseEvent) => {
-        console.log("onPointerMove move event triggered", event);
+        this.selectedColor.moveAt(event)
       },
       onPointerUp: (event: MouseEvent) => {
-        console.log("onPointerUp move event triggered", event);
+        this.selectedColor.moveAt(event)
       },
       onMouseMove: (event: MouseEvent) => {
-        console.log("Mouse move event triggered", event);
+        this.selectedColor.moveAt(event)
       },
     });
-    this.controllers.changePosition(Number(selectedColorIndex));
+  }
+  public getColor() {
+    console.log('this.selectedColor.selected', this.selectedColor.selected);
+
+    return this.selectedColor.selected
   }
 }
