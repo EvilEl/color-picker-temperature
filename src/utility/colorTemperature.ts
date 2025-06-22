@@ -1,3 +1,9 @@
+export interface IRgbColor {
+  red: number;
+  green: number;
+  blue: number;
+}
+
 const KelvinRedMore6600kA = 351.97690566805693;
 const KelvinRedMore6600kB = 0.114206453784165;
 const KelvinRedMore6600kC = 40.25366309332127;
@@ -14,7 +20,7 @@ const KelvinBlueMin6600kA = -254.76935184120902;
 const KelvinBlueMin6600kB = 0.8274096064007395;
 const KelvinBlueMin6600kC = 115.67994401066147;
 
-export function colorTemperature2rgb(kelvin: number): { red: number; green: number; blue: number } {
+export function colorTemperature2rgb(kelvin: number): IRgbColor {
   const temperature = kelvin / 100.0;
   let red = 0,
     green = 0,

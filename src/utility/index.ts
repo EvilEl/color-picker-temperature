@@ -1,2 +1,2 @@
 export * from "./colorTemperature";
-export * from "./getRgbValues";
+export * from "./ColorsValues";

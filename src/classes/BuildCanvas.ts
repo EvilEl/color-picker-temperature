@@ -1,6 +1,6 @@
-import { colorTemperature2rgb, getRgbValues } from "../utility";
+import { colorTemperature2rgb, ColorsValues } from "../utility";
 import { Controllers } from "./Controllers";
-import { IBuildCanvasOptions } from "./models";
+import type { IBuildCanvasOptions } from "./models";
 
 export class BuildCanvas {
   public canvas: HTMLCanvasElement;
@@ -16,13 +16,13 @@ export class BuildCanvas {
   constructor(options: IBuildCanvasOptions) {
     this.container = document.querySelector(
       `.temperature-picker__container-${options.hash}`
-    );
+    ) as HTMLDivElement;
     this.canvas = document.querySelector(
       `.temperature-picker__canvas-${options.hash}`
     ) as HTMLCanvasElement;
     this.radio = document.querySelector(
       `.temperature-picker__radio-${options.hash}`
-    );
+    ) as HTMLDivElement;
     this.kelvinStart = options.kelvinStart;
     this.kelvinEnd = options.kelvinEnd;
     this.rgbColor = options.rgbColor ?? "";
@@ -57,8 +57,8 @@ export class BuildCanvas {
       return 0;
     }
 
-    const rgbValues = getRgbValues(rgb);
-    if (!rgbValues) {
+    const values = ColorsValues.getColorsValues(rgb, { handler: 'getRgbValues' });
+    if (!values) {
       return 0;
     }
     const data = this.getData();
@@ -67,9 +67,9 @@ export class BuildCanvas {
 
     for (let i = 0; i < data.length; i++) {
       if (
-        Number(rgbValues[0]) === data[i][0] &&
-        Number(rgbValues[1]) === data[i][1] &&
-        Number(rgbValues[2]) === data[i][2]
+        Number(values[0]) === data[i][0] &&
+        Number(values[1]) === data[i][1] &&
+        Number(values[2]) === data[i][2]
       ) {
         findIndex.index = i;
         break;
@@ -96,12 +96,17 @@ export class BuildCanvas {
     }
 
     const selectedColorIndex = this.getSelectedColorIndex(this.rgbColor);
-    this.controllers = new Controllers({
-      canvas: this.canvas,
-      radio: this.radio,
-      context: this.context,
-      container: this.container,
+    this.controllers = new Controllers(this.canvas, {
+      onPointerMove: (event: MouseEvent) => {
+        console.log("onPointerMove move event triggered", event);
+      },
+      onPointerUp: (event: MouseEvent) => {
+        console.log("onPointerUp move event triggered", event);
+      },
+      onMouseMove: (event: MouseEvent) => {
+        console.log("Mouse move event triggered", event);
+      },
     });
-    this.controllers.chagePosition(Number(selectedColorIndex));
+    this.controllers.changePosition(Number(selectedColorIndex));
   }
 }

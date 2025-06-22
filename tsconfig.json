@@ -18,5 +18,5 @@
     "target": "ES2016",
     "noErrorTruncation": true
   },
-  "include": ["./src/", "dist/my-lib.js"]
+  "include": ["src"]
 }

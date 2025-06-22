@@ -1,7 +1,7 @@
-import { render } from "../components/Native";
+import { CreateHtmlElement } from "./CreateHtmlElement";
 import { BuildCanvas } from "./BuildCanvas";
 import UniqName from "./UniqName";
-import { IBuildCanvasOptions, ICanvasOptions } from "./models";
+import type { IBuildCanvasOptions, ICanvasOptions } from "./models";
 
 interface buildCanvasOptions
   extends Omit<Required<ICanvasOptions>, "width" | "height"> {
@@ -54,10 +54,11 @@ export class ColorTemperature {
       hash,
     });
 
-    this.component = render({
+    this.component = CreateHtmlElement.create({
       width: canvasOptions.width,
       height: canvasOptions.height,
       hash,
+      handler: 'default'
     });
 
     this.elementInstance.appendChild(this.component);
@@ -66,7 +67,7 @@ export class ColorTemperature {
   };
 
   public getColor(callback: { (): void }) {
-    this.buildCanvas.controllers.getColor(callback);
+    // this.buildCanvas?.controllers?.getColor(callback);
   }
 
   public destroyed = (): void => {
