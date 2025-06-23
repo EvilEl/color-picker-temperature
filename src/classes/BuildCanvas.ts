@@ -47,10 +47,6 @@ export class BuildCanvas {
     this.create();
   }
 
-
-
-
-
   public create(): void {
     if (!this.context) {
       return;
@@ -69,21 +65,14 @@ export class BuildCanvas {
     }
 
     this.selectedColor.getSelectedColorIndex(this.rgbColor)
-    this.controllers = new Controllers(this.canvas, {
+    this.controllers = new Controllers(this.container, {
       onPointerMove: (event: MouseEvent) => {
-        this.selectedColor.moveAt(event)
-      },
-      onPointerUp: (event: MouseEvent) => {
-        this.selectedColor.moveAt(event)
-      },
-      onMouseMove: (event: MouseEvent) => {
         this.selectedColor.moveAt(event)
       },
     });
   }
-  public getColor() {
-    console.log('this.selectedColor.selected', this.selectedColor.selected);
 
+  public getColor() {
     return this.selectedColor.selected
   }
 }

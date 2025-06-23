@@ -1,65 +1,85 @@
 interface handlerControllers {
   onPointerMove: (event: MouseEvent) => void;
-  onPointerUp: (event: MouseEvent) => void;
-  onMouseMove: (event: MouseEvent) => void;
+}
+
+interface EventSubscribe {
+  targetElement: HTMLElement | Document,
+  type: Lowercase<handleKey>,
+  callback: (event: MouseEvent) => void
 }
 
 
+type handleKey = 'pointerUp' | 'changeMouse' | 'pointerMove' | 'pointerdown'
+
 export class Controllers {
-  private _pointerUp: (event: MouseEvent) => void;
-  private changeMouse: (event: MouseEvent) => void;
-  private pointerMove: (event: MouseEvent) => void;
-  private targetElement: HTMLCanvasElement;
-  private isMouseDown: boolean = false;
+  private handlers: Partial<Record<handleKey, (event: MouseEvent) => void>>
+  private targetElement: HTMLDivElement;
+  private isDragging: boolean = false;
   private onPointerMove: (event: MouseEvent) => void;
-  private onPointerUp: (event: MouseEvent) => void;
-  private onMouseMove: (event: MouseEvent) => void;
+  private eventSubscribe: EventSubscribe[]
 
-  constructor(targetElement: HTMLCanvasElement, handlers: handlerControllers) {
-    const { onPointerMove, onPointerUp, onMouseMove } = handlers;
-
+  constructor(targetElement: HTMLDivElement, handlers: handlerControllers) {
+    const { onPointerMove } = handlers;
     this.targetElement = targetElement;
     this.onPointerMove = onPointerMove;
-    this.onPointerUp = onPointerUp
-    this.onMouseMove = onMouseMove
-
-    this._pointerUp = this.handlePointerUp.bind(this);
-    this.changeMouse = this.onChangeMouse.bind(this);
-    this.pointerMove = this.handlerPointerMove.bind(this);
-    this.isMouseDown = false;
+    this.handlers = {
+      pointerUp: this.pointerUp.bind(this),
+      changeMouse: this.changeMouse.bind(this),
+      pointerMove: this.pointerMove.bind(this)
+    }
+    this.eventSubscribe = [
+      {
+        targetElement: document,
+        type: 'pointerup',
+        callback: this.handlers.pointerUp
+      },
+      {
+        targetElement: this.targetElement,
+        type: 'pointerdown',
+        callback: this.handlers.changeMouse
+      },
+      {
+        targetElement: this.targetElement,
+        type: 'pointermove',
+        callback: this.handlers.pointerMove
+      },
+    ]
+    this.isDragging = false;
     this.setEventMouse();
   }
 
-  private handlePointerUp(event: MouseEvent) {
-    this.isMouseDown = false;
-    this.removeEventMouse();
-    this.onPointerUp(event)
+  private pointerUp() {
+    this.isDragging = false;
+    this.removeEventListener(this.targetElement, "pointermove", this.handlers.pointerMove)
   }
 
-  private onChangeMouse(event: MouseEvent) {
-    this.isMouseDown = true;
-    this.onMouseMove(event);
-  }
-
-  private setEventMouse() {
-    document.addEventListener("pointerup", this._pointerUp.bind(this));
-    this.targetElement.addEventListener("pointerdown", this.changeMouse.bind(this));
+  private changeMouse(event: MouseEvent) {
+    this.isDragging = true;
+    this.onPointerMove(event)
     this.targetElement.addEventListener(
       "pointermove",
-      this.pointerMove.bind(this)
+      this.handlers.pointerMove
     );
   }
 
-  private removeEventMouse() {
-    document.removeEventListener("pointerup", this._pointerUp);
-    this.targetElement.removeEventListener("pointerdown", this.changeMouse);
-    this.targetElement.removeEventListener("pointermove", this.pointerMove);
+  private setEventMouse() {
+    document.addEventListener("pointerup", this.handlers.pointerUp);
+    this.targetElement.addEventListener("pointerdown", this.handlers.changeMouse);
   }
 
-  private handlerPointerMove(event: MouseEvent) {
-    if (!this.isMouseDown) {
-      return;
+  public removeAllEventListener() {
+    this.eventSubscribe.forEach(data => {
+      this.removeEventListener(data.targetElement, data.type, data.callback)
+    })
+  }
+
+  private removeEventListener(targetElement: HTMLElement | Document, type: Lowercase<handleKey>, callback: typeof this.handlers[keyof typeof this.handlers]) {
+    targetElement.removeEventListener(type, callback)
+  }
+
+  private pointerMove(event: MouseEvent) {
+    if (this.isDragging) {
+      this.onPointerMove(event);
     }
-    this.onPointerMove(event);
   }
 }
