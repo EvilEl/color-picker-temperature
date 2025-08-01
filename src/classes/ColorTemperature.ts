@@ -18,10 +18,6 @@ export class ColorTemperature {
     this.buildCanvas = null;
   }
 
-  private createBuildCanvas = (options: IBuildCanvasOptions): BuildCanvas => {
-    return new BuildCanvas(options);
-  };
-
   private getBuildCanvasOptions(
     canvasOptions: buildCanvasOptions
   ): IBuildCanvasOptions {
@@ -44,30 +40,26 @@ export class ColorTemperature {
     if (this.component) {
       throw new Error("The component has already been added");
     }
-
     const hash = UniqName.getUniqName();
-
     const buildCanvasOptions = this.getBuildCanvasOptions({
       kelvinStart: canvasOptions.kelvinStart ?? 1000,
       kelvinEnd: canvasOptions.kelvinEnd ?? 4000,
       rgbColor: canvasOptions.rgbColor ?? "",
       hash,
     });
-
     this.component = CreateHtmlElement.create({
       width: canvasOptions.width,
       height: canvasOptions.height,
       hash,
       handler: 'default'
     });
-
     this.elementInstance.appendChild(this.component);
-    this.buildCanvas = this.createBuildCanvas(buildCanvasOptions);
+    this.buildCanvas = new BuildCanvas(buildCanvasOptions);
     return this;
   };
 
-  public getColor(callback: { (): void }) {
-    // this.buildCanvas?.controllers?.getColor(callback);
+  public getColor() {
+    return this.buildCanvas.getColor()
   }
 
   public destroyed = (): void => {
