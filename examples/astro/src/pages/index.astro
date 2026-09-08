@@ -1,0 +1,18 @@
+---
+import ColorTemperaturePicker from '@color-picker-temperature/astro';
+import '../../../shared.css';
+---
+<main class="demo">
+  <p class="eyebrow">Astro</p><h1>Find the warmth.</h1>
+  <ColorTemperaturePicker width="100%" height={64} />
+  <ColorTemperaturePicker class="secondary-picker" width="100%" height={40} kelvinStart={1800} kelvinEnd={10000} />
+  <output id="color">Move the marker</output>
+</main>
+<script>
+  document.addEventListener('color-temperature-change', event => {
+    const color = (event as CustomEvent<{ color: string }>).detail.color;
+    const output = document.querySelector<HTMLOutputElement>('#color');
+    if (output) output.value = color;
+    document.body.style.setProperty('--picked', color);
+  });
+</script>

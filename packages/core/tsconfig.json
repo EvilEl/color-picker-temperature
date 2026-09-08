@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "types": [
+      "node"
+    ],
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "declarationMap": false,
+    "removeComments": true,
+    "target": "ES2016",
+    "noErrorTruncation": true,
+    "module": "NodeNext"
+  },
+  "include": [
+    "src"
+  ]
+}

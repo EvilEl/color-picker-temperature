@@ -1,0 +1,37 @@
+{
+  "name": "color-picker-temperature",
+  "version": "0.3.0",
+  "main": "./dist/main.js",
+  "types": "./dist/types/main.d.ts",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check-types": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "prepack": "npm run check-types && npm test",
+    "pack:check": "npm pack --dry-run --ignore-scripts --cache ../../.npm-cache"
+  },
+  "keywords": [
+    "kelvin",
+    "kelvin color picker",
+    "color picker",
+    "color",
+    "picker",
+    "canvas"
+  ],
+  "type": "module",
+  "author": "Andreev Michael (https://www.linkedin.com/in/mikhail-andreev-2741b8209/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilEl/color-picker-temperature.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/EvilEl/color-picker-temperature/issues"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/types/**/*.d.ts"
+  ]
+}

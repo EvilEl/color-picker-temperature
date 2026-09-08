@@ -1,0 +1,30 @@
+{
+  "name": "@color-picker-temperature/astro",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/ColorTemperaturePicker.astro"
+  },
+  "files": ["src", "README.md"],
+  "scripts": {
+    "build": "astro check",
+    "check-types": "astro check",
+    "test": "astro check",
+    "pack:check": "npm pack --dry-run --ignore-scripts --cache ../../.npm-cache"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0",
+    "color-picker-temperature": ">=0.3.0"
+  },
+  "devDependencies": {
+    "color-picker-temperature": "*"
+  },
+  "publishConfig": { "access": "public" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilEl/color-picker-temperature.git",
+    "directory": "packages/astro"
+  },
+  "author": "Andreev Michael",
+  "license": "MIT"
+}

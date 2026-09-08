@@ -1,40 +1,33 @@
 {
-  "name": "color-picker-temperature",
-  "version": "0.2.3",
-  "main": "./dist/main.js",
-  "types": "./dist/types/main.d.ts",
-  "scripts": {
-    "build": "node scripts/build.mjs",
-    "check-types": "tsc --noEmit",
-    "test": "npm run build && node --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.mjs",
-    "prepack": "npm run check-types && npm test"
-  },
-  "keywords": [
-    "kelvin",
-    "kelvin color picker",
-    "color picker",
-    "color",
-    "picker",
-    "canvas"
-  ],
+  "name": "color-picker-temperature-monorepo",
+  "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "author": "Andreev Michael (https://www.linkedin.com/in/mikhail-andreev-2741b8209/)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EvilEl/color-picker-temperature.git"
-  },
-  "bugs": {
-    "url": "https://github.com/EvilEl/color-picker-temperature/issues"
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build:packages": "npm run build -w color-picker-temperature && npm run build -w @color-picker-temperature/react && npm run build -w @color-picker-temperature/vue && npm run build -w @color-picker-temperature/astro",
+    "build": "npm run build:packages && npm run build --workspaces --if-present --include-workspace-root=false",
+    "check-types": "npm run build:packages && npm run check-types --workspaces --if-present",
+    "test": "npm run build:packages && npm run test --workspaces --if-present",
+    "test:browser": "npm run build:packages && npm run build -w @color-picker-temperature/example-astro && npm run test:browser -w color-picker-temperature",
+    "pack:check": "npm run build:packages && node scripts/check-package-tarballs.mjs"
   },
   "devDependencies": {
-    "@types/node": "^20.11.28",
-    "path": "^0.12.7",
-    "typescript": "^4.9.5"
-  },
-  "files": [
-    "dist/**/*.js",
-    "dist/types/**/*.d.ts"
-  ]
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "astro": "^5.13.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.1.0",
+    "vitest": "^3.2.0",
+    "vue": "^3.5.0",
+    "vue-tsc": "^3.0.0"
+  }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "@color-picker-temperature/vue",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "pack:check": "npm pack --dry-run --ignore-scripts --cache ../../.npm-cache"
+  },
+  "peerDependencies": {
+    "color-picker-temperature": ">=0.3.0",
+    "vue": ">=3.3.0"
+  },
+  "devDependencies": {
+    "color-picker-temperature": "*"
+  },
+  "publishConfig": { "access": "public" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilEl/color-picker-temperature.git",
+    "directory": "packages/vue"
+  },
+  "author": "Andreev Michael",
+  "license": "MIT"
+}

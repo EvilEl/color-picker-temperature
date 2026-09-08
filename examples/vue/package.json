@@ -1,0 +1,8 @@
+{
+  "name": "@color-picker-temperature/example-vue",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "check-types": "vue-tsc --noEmit" },
+  "dependencies": { "@color-picker-temperature/vue": "*", "vue": "^3.5.0" },
+  "devDependencies": { "@vitejs/plugin-vue": "^6.0.0", "vite": "^7.1.0", "vue-tsc": "^3.0.0" }
+}

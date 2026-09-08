@@ -1,4 +1,6 @@
 dist
 node_modules
+.npm-cache
+.astro
 .DS_Store
 project
