@@ -38,13 +38,13 @@ try {
   const consumer = join(temporary, 'consumer.mjs');
   writeFileSync(consumer, [
     "import { ColorTemperature } from 'color-picker-temperature';",
-    "import { ColorTemperaturePicker as ReactPicker } from '@color-picker-temperature/react';",
-    "import { ColorTemperaturePicker as VuePicker } from '@color-picker-temperature/vue';",
+    "import { ColorTemperaturePicker as ReactPicker } from 'color-picker-temperature-react';",
+    "import { ColorTemperaturePicker as VuePicker } from 'color-picker-temperature-vue';",
     "if (![ColorTemperature, ReactPicker, VuePicker].every(value => typeof value === 'function' || typeof value === 'object')) throw new Error('Invalid adapter export');",
   ].join('\n'));
   execFileSync(process.execPath, [consumer], { cwd: temporary, stdio: 'pipe' });
 
-  const astroComponent = join(temporary, 'node_modules/@color-picker-temperature/astro/src/ColorTemperaturePicker.astro');
+  const astroComponent = join(temporary, 'node_modules/color-picker-temperature-astro/src/ColorTemperaturePicker.astro');
   if (!existsSync(astroComponent)) throw new Error('Astro tarball is missing its component entry point');
   console.log(`Packed, installed, and checked ${tarballs.length} publishable workspaces.`);
 } finally {

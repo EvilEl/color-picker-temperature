@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ColorTemperaturePicker } from '@color-picker-temperature/vue';
+import { ColorTemperaturePicker } from 'color-picker-temperature-vue';
 const color = ref('rgb(255, 200, 140)');
 </script>
 

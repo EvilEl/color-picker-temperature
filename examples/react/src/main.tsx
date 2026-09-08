@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ColorTemperaturePicker } from '@color-picker-temperature/react';
+import { ColorTemperaturePicker } from 'color-picker-temperature-react';
 import '../../shared.css';
 
 function App() {

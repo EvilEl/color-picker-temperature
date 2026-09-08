@@ -1,5 +1,5 @@
 {
-  "name": "@color-picker-temperature/react",
+  "name": "color-picker-temperature-react",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -15,6 +15,7 @@
     "build": "tsc -p tsconfig.json",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
+    "prepack": "npm run check-types && npm run build && npm test",
     "pack:check": "npm pack --dry-run --ignore-scripts --cache ../../.npm-cache"
   },
   "peerDependencies": {
@@ -24,7 +25,6 @@
   "devDependencies": {
     "color-picker-temperature": "*"
   },
-  "publishConfig": { "access": "public" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EvilEl/color-picker-temperature.git",

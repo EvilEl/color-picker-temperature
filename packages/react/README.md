@@ -1,11 +1,11 @@
-# @color-picker-temperature/react
+# color-picker-temperature-react
 
 ```sh
-npm install color-picker-temperature @color-picker-temperature/react
+npm install color-picker-temperature color-picker-temperature-react
 ```
 
 ```tsx
-import { ColorTemperaturePicker } from '@color-picker-temperature/react';
+import { ColorTemperaturePicker } from 'color-picker-temperature-react';
 
 <ColorTemperaturePicker
   value={color}

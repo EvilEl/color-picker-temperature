@@ -3,5 +3,5 @@
   "private": true,
   "type": "module",
   "scripts": { "build": "astro build", "check-types": "astro check" },
-  "dependencies": { "@color-picker-temperature/astro": "*", "astro": "^5.13.0" }
+  "dependencies": { "color-picker-temperature-astro": "*", "astro": "^5.13.0" }
 }

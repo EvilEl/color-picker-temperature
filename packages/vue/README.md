@@ -1,13 +1,13 @@
-# @color-picker-temperature/vue
+# color-picker-temperature-vue
 
 ```sh
-npm install color-picker-temperature @color-picker-temperature/vue
+npm install color-picker-temperature color-picker-temperature-vue
 ```
 
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ColorTemperaturePicker } from '@color-picker-temperature/vue';
+import { ColorTemperaturePicker } from 'color-picker-temperature-vue';
 const color = ref('rgb(255, 200, 140)');
 </script>
 
