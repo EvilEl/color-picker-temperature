@@ -4,6 +4,17 @@ A canvas color picker for a Kelvin temperature gradient. Requires a browser with
 
 ![Color Picker Temperature preview](https://raw.githubusercontent.com/EvilEl/color-picker-temperature/main/docs/color-picker-preview.png)
 
+## Framework integrations
+
+| Framework | Package | Installation |
+| --- | --- | --- |
+| Vanilla | [`color-picker-temperature`](https://www.npmjs.com/package/color-picker-temperature) | `npm i color-picker-temperature` |
+| React | [`color-picker-temperature-react`](https://www.npmjs.com/package/color-picker-temperature-react) | `npm i color-picker-temperature color-picker-temperature-react` |
+| Vue | [`color-picker-temperature-vue`](https://www.npmjs.com/package/color-picker-temperature-vue) | `npm i color-picker-temperature color-picker-temperature-vue` |
+| Astro | [`color-picker-temperature-astro`](https://www.npmjs.com/package/color-picker-temperature-astro) | `npm i color-picker-temperature color-picker-temperature-astro` |
+
+All integrations use this package as their framework-independent rendering and interaction core. See the [monorepo examples](https://github.com/EvilEl/color-picker-temperature/tree/main/examples) for complete applications.
+
 ## Install
 
 ```sh

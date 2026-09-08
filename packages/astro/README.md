@@ -1,5 +1,7 @@
 # color-picker-temperature-astro
 
+Astro adapter for [`color-picker-temperature`](https://www.npmjs.com/package/color-picker-temperature). See the other [framework integrations](https://github.com/EvilEl/color-picker-temperature#framework-integrations) and the [Astro example](https://github.com/EvilEl/color-picker-temperature/tree/main/examples/astro).
+
 ```sh
 npm install color-picker-temperature color-picker-temperature-astro
 ```
