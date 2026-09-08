@@ -1,2 +1,2 @@
-export * from "./colorTemperature";
-export * from "./ColorsValues";
+export * from "./colorTemperature.js";
+export * from "./ColorsValues.js";
