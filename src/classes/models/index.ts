@@ -1,2 +1,2 @@
-export * from "./i-color-temperature";
-export * from "./i-canvas-options";
+export * from "./i-color-temperature.js";
+export * from "./i-canvas-options.js";

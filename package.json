@@ -1,12 +1,14 @@
 {
   "name": "color-picker-temperature",
   "version": "0.2.2",
-  "main": "./dist/classes/ColorTemperature.js",
-  "types": "./dist/types/classes/index.d.ts",
+  "main": "./dist/main.js",
+  "types": "./dist/types/main.d.ts",
   "scripts": {
-    "build": "tsc",
-    "publish": "tsc && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node scripts/build.mjs",
+    "check-types": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "prepack": "npm run check-types && npm test"
   },
   "keywords": [
     "kelvin",
@@ -30,5 +32,9 @@
     "@types/node": "^20.11.28",
     "path": "^0.12.7",
     "typescript": "^4.9.5"
-  }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/types/**/*.d.ts"
+  ]
 }

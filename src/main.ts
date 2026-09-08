@@ -1,5 +1,10 @@
-import { BuildCanvas } from "./classes/BuildCanvas";
-import { Controllers } from "./classes/Controllers";
-import { ColorTemperature } from "./classes/ColorTemperature";
+export { ColorTemperature } from './classes/ColorTemperature.js';
+export { BuildCanvas } from './classes/BuildCanvas.js';
+export { Controllers } from './classes/Controllers.js';
+export { DragController } from './classes/DragController.js';
 
-export { BuildCanvas, Controllers, ColorTemperature };
+export type { ICanvasOptions, IBuildCanvasOptions } from './classes/models/index.js';
+export type { ICanvasRenderer } from './classes/interfaces/ICanvasRenderer.js';
+export type { IColorExtractor, ColorSample } from './classes/interfaces/IColorExtractor.js';
+export type { IPositionCalculator } from './classes/interfaces/IPositionCalculator.js';
+export type { IDragController } from './classes/interfaces/IDragController.js';

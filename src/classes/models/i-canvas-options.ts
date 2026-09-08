@@ -5,3 +5,9 @@ export interface ICanvasOptions {
   kelvinEnd?: number;
   rgbColor?: string;
 }
+
+export interface IDomRefs {
+  container: HTMLDivElement;
+  canvas: HTMLCanvasElement;
+  radio: HTMLDivElement;
+}
