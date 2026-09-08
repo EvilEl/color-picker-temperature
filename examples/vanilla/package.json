@@ -1,0 +1,8 @@
+{
+  "name": "@color-picker-temperature/example-vanilla",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "check-types": "tsc --noEmit" },
+  "dependencies": { "color-picker-temperature": "*" },
+  "devDependencies": { "vite": "^7.1.0" }
+}

@@ -1,0 +1,63 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'div'> {
+  width: number | string;
+  height: number | string;
+  kelvinStart?: number;
+  kelvinEnd?: number;
+  value?: string;
+}
+
+const {
+  width,
+  height,
+  kelvinStart = 1000,
+  kelvinEnd = 40000,
+  value,
+  id: suppliedId,
+  ...attributes
+} = Astro.props;
+const options = { width, height, kelvinStart, kelvinEnd, rgbColor: value };
+---
+
+<div
+  {...attributes}
+  id={suppliedId}
+  data-color-temperature-picker
+  data-color-temperature-options={JSON.stringify(options)}
+></div>
+
+<script>
+  import { ColorTemperature } from 'color-picker-temperature';
+
+  const instances = new Map();
+
+  const initialize = () => {
+    document.querySelectorAll('[data-color-temperature-picker]').forEach((element) => {
+      if (!(element instanceof HTMLElement) || instances.has(element)) return;
+      const serialized = element.dataset.colorTemperatureOptions;
+      if (!serialized) return;
+      const picker = new ColorTemperature().create(element, JSON.parse(serialized));
+      const unsubscribe = picker.onChange((color) => {
+        element.dispatchEvent(new CustomEvent('color-temperature-change', {
+          bubbles: true,
+          detail: { color },
+        }));
+      });
+      instances.set(element, { picker, unsubscribe });
+    });
+  };
+
+  const destroyAll = () => {
+    for (const { picker, unsubscribe } of instances.values()) {
+      unsubscribe();
+      picker.destroy();
+    }
+    instances.clear();
+  };
+
+  initialize();
+  document.addEventListener('astro:page-load', initialize);
+  document.addEventListener('astro:before-swap', destroyAll);
+</script>
