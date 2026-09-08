@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Add links to the official React, Vue and Astro adapter packages.
+
 ## 0.3.0
 
 - Accept an `HTMLElement` as well as a selector in `create()`.

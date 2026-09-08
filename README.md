@@ -2,14 +2,18 @@
 
 A framework-independent Kelvin temperature picker with first-party adapters for React, Vue and Astro.
 
-## Packages
+![Color Picker Temperature preview](https://raw.githubusercontent.com/EvilEl/color-picker-temperature/main/docs/color-picker-preview.png)
 
-| Package | Description |
-| --- | --- |
-| [`color-picker-temperature`](./packages/core) | Browser core and vanilla API |
-| [`@color-picker-temperature/react`](./packages/react) | React component and imperative ref |
-| [`@color-picker-temperature/vue`](./packages/vue) | Vue component with `v-model` |
-| [`@color-picker-temperature/astro`](./packages/astro) | SSR-safe Astro component |
+## Framework integrations
+
+| Framework | Package | Installation |
+| --- | --- | --- |
+| Vanilla | [`color-picker-temperature`](https://www.npmjs.com/package/color-picker-temperature) | `npm i color-picker-temperature` |
+| React | [`color-picker-temperature-react`](https://www.npmjs.com/package/color-picker-temperature-react) | `npm i color-picker-temperature color-picker-temperature-react` |
+| Vue | [`color-picker-temperature-vue`](https://www.npmjs.com/package/color-picker-temperature-vue) | `npm i color-picker-temperature color-picker-temperature-vue` |
+| Astro | [`color-picker-temperature-astro`](https://www.npmjs.com/package/color-picker-temperature-astro) | `npm i color-picker-temperature color-picker-temperature-astro` |
+
+See the runnable [Vanilla](./examples/vanilla), [React](./examples/react), [Vue](./examples/vue), and [Astro](./examples/astro) examples.
 
 ## Development
 
@@ -19,5 +23,3 @@ npm run check-types
 npm test
 npm run build
 ```
-
-Runnable examples live in `examples/vanilla`, `examples/react`, `examples/vue`, and `examples/astro`.

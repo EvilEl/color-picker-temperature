@@ -8,7 +8,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build:packages": "npm run build -w color-picker-temperature && npm run build -w @color-picker-temperature/react && npm run build -w @color-picker-temperature/vue && npm run build -w @color-picker-temperature/astro",
+    "build:packages": "npm run build -w color-picker-temperature && npm run build -w color-picker-temperature-react && npm run build -w color-picker-temperature-vue && npm run build -w color-picker-temperature-astro",
     "build": "npm run build:packages && npm run build --workspaces --if-present --include-workspace-root=false",
     "check-types": "npm run build:packages && npm run check-types --workspaces --if-present",
     "test": "npm run build:packages && npm run test --workspaces --if-present",
